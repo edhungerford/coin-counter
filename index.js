@@ -28,7 +28,7 @@ function updateBanner(id){
   })
 }
 
-app.get('/:id', (req, res) => {
+app.get('/api/:id', (req, res) => {
   try {
     res.json(getData('coins.db')[req.params.id])
     updateBanner(req.params.id)
@@ -37,7 +37,7 @@ app.get('/:id', (req, res) => {
   }
 })
 
-app.post('/:id', (req, res) =>{ 
+app.post('/api/:id', (req, res) =>{ 
   try {
     const count = getData('coins.db')[req.params.id];
     const update = db.prepare(`UPDATE 'coins' SET Coins = Coins + 1 WHERE 'coins'.ID = ${count.ID}`).all();
