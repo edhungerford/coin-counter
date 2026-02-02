@@ -18,6 +18,7 @@ function updateBanner(id){
   loadImage('./coinbanner.png').then((image) =>{
     ctx.drawImage(image, 0, 0, 800, 200);
     ctx.font = "48px Arial";
+    ctx.textAlign = "center";
     ctx.fillText(count.Coins, 642, 109);
     const fs = require('fs');
     const out = fs.createWriteStream(__dirname + `/banner/${count.ID}.png`);
