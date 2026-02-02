@@ -34,11 +34,10 @@ app.get('/:id', (req, res) => {
     updateBanner(req.params.id)
   } catch(err) {
     console.error('Invalid ID: ', err.message);
-    next(err);
   }
 })
 
-app.post('/:id', (req, res, next) =>{ 
+app.post('/:id', (req, res) =>{ 
   try {
     const count = getData('coins.db')[req.params.id];
     const update = db.prepare(`UPDATE 'coins' SET Coins = Coins + 1 WHERE 'coins'.ID = ${count.ID}`).all();
@@ -47,7 +46,6 @@ app.post('/:id', (req, res, next) =>{
     
   } catch(err) {
     console.error('Invalid ID: ', err.message);
-    next(err);
   }
 })
 
