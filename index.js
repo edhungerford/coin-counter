@@ -21,7 +21,7 @@ function updateBanner(id){
     ctx.textAlign = "center";
     ctx.fillText(count.Coins, 642, 109);
     const fs = require('fs');
-    const out = fs.createWriteStream(__dirname + `/banner/${count.ID}.png`);
+    const out = fs.createWriteStream(__dirname + `/public/banner/${count.ID}.png`);
     const stream = canvas.createPNGStream();
     stream.pipe(out);
     out.on('finish', () => console.log('Image has been processed.'));
