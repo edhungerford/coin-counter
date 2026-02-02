@@ -5,14 +5,15 @@ const Database = require('better-sqlite3');
 const port = 3002;
 const { createCanvas, loadImage } = require('canvas');
 
+let db = new Database('coins.db');
+
 function getData(database){
-  let db = new Database(database);
-  const results = db.prepare(`SELECT * from 'coins'`).all();
+  const results = database.prepare(`SELECT * from 'coins'`).all();
   return results;
 }
 
 function updateBanner(id){
-  const count = getData('coins.db')[id];
+  const count = getData(db)[id];
   const canvas = createCanvas(800,200);
   const ctx = canvas.getContext('2d');
   loadImage('./coinbanner.png').then((image) =>{
@@ -30,7 +31,7 @@ function updateBanner(id){
 
 app.get('/api/:id', (req, res) => {
   try {
-    res.json(getData('coins.db')[req.params.id])
+    res.json(getData(db)[req.params.id])
     updateBanner(req.params.id)
   } catch(err) {
     console.error('Invalid ID: ', err.message);
@@ -39,7 +40,7 @@ app.get('/api/:id', (req, res) => {
 
 app.post('/api/:id', (req, res) =>{ 
   try {
-    const count = getData('coins.db')[req.params.id];
+    const count = getData(db)[req.params.id];
     const update = db.prepare(`UPDATE 'coins' SET Coins = Coins + 1 WHERE 'coins'.ID = ${count.ID}`).all();
     updateBanner(count.ID)
     res.json(count);
