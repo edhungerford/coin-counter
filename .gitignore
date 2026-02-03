@@ -141,5 +141,5 @@ vite.config.ts.timestamp-*
 # Ignore images and database.
 public/
 banner/
-coins.db
 frontend/
+coins.db

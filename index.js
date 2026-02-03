@@ -21,6 +21,10 @@ function updateBanner(id){
     ctx.font = "48px Arial";
     ctx.textAlign = "center";
     ctx.fillText(count.Coins, 642, 109);
+    ctx.font = "24px Arial";
+    ctx.textAlign = "right";
+    ctx.fillText(count.Name, 600, 195)
+    console.log(count.Name)
     const fs = require('fs');
     const out = fs.createWriteStream(__dirname + `/public/banner/${count.ID}.png`);
     const stream = canvas.createPNGStream();
