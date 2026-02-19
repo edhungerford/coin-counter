@@ -47,7 +47,7 @@ function updateBanner(id){
     // Add item: Fancy Collar
     if(inventory.includes("Fancy Collar")) console.log("Found fancy collar.")
     // Add item: Golden Bone
-    if(inventory.includes("Golden Bone")) console.log("Found golden bone.")
+    if(inventory.includes("Golden Bone")) db.prepare(`UPDATE 'coins' SET Coins = Coins + 1 WHERE 'coins'.ID = ${count.ID}`).run();
 
     // Write final changes
     const fs = require('fs');
