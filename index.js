@@ -65,7 +65,28 @@ function updateBanner(id){
     ctx.fillText(count.Name, 600, 195)
 
     // Add item: Fancy Collar
-    if(inventory.includes("Fancy Collar")) console.log("Found fancy collar.")
+    if(inventory.includes("Fancy Collar")){
+        ctx.beginPath();
+        ctx.moveTo(750,100);
+        ctx.lineTo(795,100);
+        ctx.lineTo(795,125);
+        ctx.lineTo(750,125);
+        ctx.lineTo(750,120);
+        ctx.lineTo(790,120);
+        ctx.lineTo(790,115);
+        ctx.lineTo(770,115);
+        ctx.lineTo(770,110);
+        ctx.lineTo(790,110);
+        ctx.lineTo(790,105);
+        ctx.lineTo(750,105);
+        ctx.lineTo(750, 100);
+        ctx.lineWidth = "1";
+        ctx.fillStyle = "gold";
+        ctx.strokeStyle = "black";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+    }
     // Add item: Golden Bone
     if(inventory.includes("Golden Bone")) db.prepare(`UPDATE 'coins' SET Coins = Coins - 2 WHERE 'coins'.ID = ${count.ID}`).run();
 
