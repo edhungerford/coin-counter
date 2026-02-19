@@ -7,13 +7,22 @@ const { createCanvas, loadImage } = require('canvas');
 
 let db = new Database('coins.db');
 
-function getData(database){
-  const results = database.prepare(`SELECT * from 'coins'`).all();
+function getData(id){
+  const results = db.prepare(`SELECT * from 'coins' WHERE coins.ID == ${id}`).all();
+  return results;
+}
+
+function getInventory(id){
+  const results = db.prepare(`SELECT items.Name from inventory JOIN items ON inventory.Item == items.ID WHERE inventory.User == ${id}`).all();
   return results;
 }
 
 function updateBanner(id){
-  const count = getData(db)[id];
+  // Get user data
+  const count = getData(id);
+  const inventory = getInventory(id);
+
+  // Draw the basic banner
   const canvas = createCanvas(800,200);
   const ctx = canvas.getContext('2d');
   loadImage('./coinbanner.png').then((image) =>{
@@ -24,7 +33,19 @@ function updateBanner(id){
     ctx.font = "24px Arial";
     ctx.textAlign = "right";
     ctx.fillText(count.Name, 600, 195)
-    console.log(count.Name)
+
+    // Add item: Bone
+    if(inventory.includes("Bone")) console.log("Found bone.")
+    // Add item: Fancy Collar
+    if(inventory.includes("Fancy Collar")) console.log("Found fancy collar.")
+    // Add item: Nominal Phial
+    if(inventory.includes("Nominal Phial")) console.log("Found nominal phial.")
+    // Add item: Times New Roman Font
+    if(inventory.includes("Times New Roman Font")) console.log("Found Times New Roman font.")
+    // Add item: Golden Bone
+    if(inventory.includes("Golden Bone")) console.log("Found golden bone.")
+
+    // Write final changes
     const fs = require('fs');
     const out = fs.createWriteStream(__dirname + `/public/banner/${count.ID}.png`);
     const stream = canvas.createPNGStream();
@@ -35,7 +56,7 @@ function updateBanner(id){
 
 app.get('/api/:id', (req, res) => {
   try {
-    res.json(getData(db)[req.params.id])
+    res.json(getData(req.params.id))
     updateBanner(req.params.id)
   } catch(err) {
     console.error('Invalid ID: ', err.message);
@@ -44,7 +65,7 @@ app.get('/api/:id', (req, res) => {
 
 app.post('/api/:id', (req, res) =>{ 
   try {
-    const count = getData(db)[req.params.id];
+    const count = getData(req.params.id);
     const update = db.prepare(`UPDATE 'coins' SET Coins = Coins + 1 WHERE 'coins'.ID = ${count.ID}`).run();
     updateBanner(count.ID)
     res.json(count);
