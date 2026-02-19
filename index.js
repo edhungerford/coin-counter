@@ -67,6 +67,19 @@ function updateBanner(id){
     // Add item: Fancy Collar
     if(inventory.includes("Fancy Collar")){
         ctx.beginPath();
+        ctx.moveTo(755,0);
+        ctx.lineTo(755,200);
+        ctx.lineTo(790,200);
+        ctx.lineTo(790,0);
+        ctx.lineTo(755,0);
+        ctx.lineWidth = "4";
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = "red";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+      
+        ctx.beginPath();
         ctx.moveTo(750,100);
         ctx.lineTo(795,100);
         ctx.lineTo(795,125);
