@@ -8,20 +8,20 @@ const { createCanvas, loadImage } = require('canvas');
 let db = new Database('coins.db');
 
 function getData(id){
-  const results = db.prepare(`SELECT * from 'coins' WHERE coins.ID == ${id}`).all();
+  const results = db.prepare(`SELECT * from 'coins' WHERE coins.ID == ${id};`).all();
   return results;
 }
 
 function getInventory(id){
-  const results = db.prepare(`SELECT items.Name from inventory JOIN items ON inventory.Item == items.ID WHERE inventory.User == ${id}`).all();
+  const results = db.prepare(`SELECT * from 'inventory' JOIN 'items' ON inventory.Item == items.ID WHERE inventory.User == ${id};`).all();
   return results;
 }
 
 function updateBanner(id){
   // Get user data
-  const count = getData(id);
-  const inventory = getInventory(id);
-
+  const count = getData(id)[0];
+        console.log(count);
+  const inventory = getInventory(id).map(row => row.Name);
   // Draw the basic banner
   const canvas = createCanvas(800,200);
   const ctx = canvas.getContext('2d');
@@ -61,22 +61,4 @@ app.get('/api/:id', (req, res) => {
   } catch(err) {
     console.error('Invalid ID: ', err.message);
   }
-})
-
-app.post('/api/:id', (req, res) =>{ 
-  try {
-    const count = getData(req.params.id)[0];
-    const update = db.prepare(`UPDATE 'coins' SET Coins = Coins + 1 WHERE 'coins'.ID = ${count.ID}`).run();
-    updateBanner(count.ID)
-    res.json(count);
-    
-  } catch(err) {
-    console.error('Invalid ID: ', err.message);
-  }
-})
-
-app.use(express.static('public'))
-
-app.listen(port, () => {
-  console.log(`Coin counting API listening on port ${port}`)
 })
