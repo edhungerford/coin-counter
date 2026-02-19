@@ -44,6 +44,7 @@ function updateBanner(id){
         ctx.arc(610, 200, 20, Math.PI, Math.PI * 1.5, 1);
         ctx.arc(610, 170, 20, Math.PI * 0.5, Math.PI, 1);
         ctx.lineTo(314, 170);
+        ctx.fillStyle = "white";
         if(inventory.includes("Golden Bone")){
           ctx.fillStyle = "gold";
         }
@@ -55,6 +56,7 @@ function updateBanner(id){
     }
 
     ctx.font = "24px Arial";
+    ctx.fillStyle = "black";
     
     //Add item: Times New Roman Font
     if(inventory.includes("Times New Roman Font")) ctx.font = "24px Times New Roman";
