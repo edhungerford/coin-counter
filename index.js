@@ -34,6 +34,7 @@ function updateBanner(id){
     
     ctx.textAlign = "center";
     ctx.fillText(count.Coins, 642, 109);
+    
     ctx.font = "24px Arial";
     
     //Add item: Times New Roman Font
@@ -43,7 +44,23 @@ function updateBanner(id){
     ctx.fillText(count.Name, 600, 195)
 
     // Add item: Bone
-    if(inventory.includes("Bone")) console.log("Found bone.")
+    if(inventory.includes("Bone")){
+      ctx.beginPath();
+        ctx.arc(314, 170, 20, 0, Math.PI * 0.5, 1);
+        ctx.arc(314, 200, 20, Math.PI * 1.5, 0, 1);
+        ctx.lineTo(610, 200);
+        ctx.arc(610, 200, 20, Math.PI, Math.PI * 1.5, 1);
+        ctx.arc(610, 170, 20, Math.PI * 0.5, Math.PI, 1);
+        ctx.lineTo(314, 170);
+        if(inventory.includes("Golden Bone")){
+          ctx.fillStyle = "gold";
+        }
+        ctx.lineWidth = "4"
+        ctx.strokeStyle = "black";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+    }
     // Add item: Fancy Collar
     if(inventory.includes("Fancy Collar")) console.log("Found fancy collar.")
     // Add item: Golden Bone
