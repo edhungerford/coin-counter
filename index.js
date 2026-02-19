@@ -28,9 +28,17 @@ function updateBanner(id){
   loadImage('./coinbanner.png').then((image) =>{
     ctx.drawImage(image, 0, 0, 800, 200);
     ctx.font = "48px Arial";
+
+    //Add item: Times New Roman Font
+    if(inventory.includes("Times New Roman Font")) ctx.font = "48px Times New Roman";
+    
     ctx.textAlign = "center";
     ctx.fillText(count.Coins, 642, 109);
     ctx.font = "24px Arial";
+    
+    //Add item: Times New Roman Font
+    if(inventory.includes("Times New Roman Font")) ctx.font = "24px Times New Roman";
+
     ctx.textAlign = "right";
     ctx.fillText(count.Name, 600, 195)
 
@@ -38,10 +46,6 @@ function updateBanner(id){
     if(inventory.includes("Bone")) console.log("Found bone.")
     // Add item: Fancy Collar
     if(inventory.includes("Fancy Collar")) console.log("Found fancy collar.")
-    // Add item: Nominal Phial
-    if(inventory.includes("Nominal Phial")) console.log("Found nominal phial.")
-    // Add item: Times New Roman Font
-    if(inventory.includes("Times New Roman Font")) console.log("Found Times New Roman font.")
     // Add item: Golden Bone
     if(inventory.includes("Golden Bone")) console.log("Found golden bone.")
 
