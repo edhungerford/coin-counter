@@ -65,7 +65,7 @@ app.get('/api/:id', (req, res) => {
 
 app.post('/api/:id', (req, res) =>{ 
   try {
-    const count = getData(req.params.id);
+    const count = getData(req.params.id)[0];
     const update = db.prepare(`UPDATE 'coins' SET Coins = Coins + 1 WHERE 'coins'.ID = ${count.ID}`).run();
     updateBanner(count.ID)
     res.json(count);
